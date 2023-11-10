@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
-memo=2526
+memo=0
 
 def scraping(url):
     global memo
