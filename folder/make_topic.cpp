@@ -81,24 +81,18 @@ int distance(string x,string y){
       }
     }
   }
-    
-  
-    ofstream fi("y.txt");
-	fi<<y;
-	fi.close();
-    
-    system("python3 mecab.py");
-    
-    int d2;
-	FILE *file;
-	file = fopen("score.txt", "r");
-	fscanf(file, "%d", &d2);
-	fclose(file);
-    
-    cout<<d2<<endl;
-    
-    
-  return LP[(int)x.size()][(int)y.size()]-(d2*100);
+	
+ofstream fi("y.txt");
+fi<<y;
+fi.close();
+system("python3 mecab.py");
+int d2;
+FILE *file;
+file = fopen("score.txt", "r");
+fscanf(file, "%d", &d2);
+fclose(file);
+cout<<d2<<endl;
+return LP[(int)x.size()][(int)y.size()]-(d2*100);
 
 }
 int main(){
@@ -113,8 +107,8 @@ int main(){
 	}
 	if(escape){break;}
 	}
-    
-    ofstream fi("x.txt");
+	
+	ofstream fi("x.txt");
 	fi<<start;
 	fi.close();
     
@@ -124,8 +118,8 @@ int main(){
     
 	for(int i=0;i<=2525;i++){
 	string s=to_string(i);
-    ifstream myfile (s+"_q.txt");    
-    if( !myfile ) {continue;}
+	ifstream myfile (s+"_q.txt");    
+	if( !myfile ) {continue;}
 	string line;
 	string t_path="";
 	while(getline(myfile,line)){
@@ -137,7 +131,7 @@ int main(){
 	else{break;}
 	}   
 	int d=distance(start,t_path);
-    if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
+	if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
 	if(mind>d){mind=d;find=i;}
 	cout<<"i="<<i<<",d="<<d<<endl;
 	}
@@ -155,10 +149,10 @@ int main(){
 	myfile.close();
 	ans=t_path;
 	cout<<find<<"_a.txt"<<endl;
-    for(int i=0;i<(int)ans.size();i++){
+	for(int i=0;i<(int)ans.size();i++){
 	if(ans[i]=='@'){ans[i]='\n';}
 	}
-    cout<<ans<<endl;
+	cout<<ans<<endl;
     
 	return 0;
 }
