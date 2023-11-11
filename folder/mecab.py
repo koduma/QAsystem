@@ -4,12 +4,12 @@ import os
 
 classes_path = 'x.txt'
 aaa = os.path.expanduser(classes_path)
-with open(classes_path) as f:
+with open(classes_path, 'r', encoding='utf-8', errors='ignore') as f:
     class_names = f.readlines()
     
 classes_path = 'y.txt'
 aaa = os.path.expanduser(classes_path)
-with open(classes_path) as f:
+with open(classes_path, 'r', encoding='utf-8', errors='ignore') as f:
     class_names2 = f.readlines()    
 
 mecabTagger = MeCab.Tagger()
@@ -57,7 +57,9 @@ score=0
 for i in range(len(noun_count)):
     for j in range(len(noun_count2)):
         if noun_count[i][0] == noun_count2[j][0]:
-            score+=1
+            print(str(noun_count[i][0])+",score="+str(score+1))
+            #print(noun_count[i][1])
+            score=score+1
             
 f = open('score.txt', 'w')
 f.write(str(score))
