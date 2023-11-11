@@ -155,10 +155,10 @@ int main(){
 	myfile.close();
 	ans=t_path;
 	cout<<find<<"_a.txt"<<endl;
-    for(int i=0;i<(int)ans.size();i++){
+	for(int i=0;i<(int)ans.size();i++){
 	if(ans[i]=='@'){ans[i]='\n';}
 	}
-    cout<<ans<<endl;
+	cout<<ans<<endl;
     
 	return 0;
 }
