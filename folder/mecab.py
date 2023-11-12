@@ -57,9 +57,9 @@ score=0
 for i in range(len(noun_count)):
     for j in range(len(noun_count2)):
         if noun_count[i][0] == noun_count2[j][0]:
-            print(str(noun_count[i][0])+",score="+str(score+1))
+            print(str(noun_count[i][0])+",score="+str(score+text.count(str(noun_count[i][0]))))
             #print(noun_count[i][1])
-            score=score+1
+            score=score+text.count(str(noun_count[i][0]))
             
 f = open('score.txt', 'w')
 f.write(str(score))
