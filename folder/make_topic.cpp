@@ -81,12 +81,11 @@ int distance(string x,string y){
       }
     }
   }
+	
 ofstream fi("y.txt");
 fi<<y;
 fi.close();
-    
 system("python3 mecab.py");
-    
 int d2;
 FILE *file;
 file = fopen("score.txt", "r");
@@ -108,6 +107,7 @@ int main(){
 	}
 	if(escape){break;}
 	}
+	
 	ofstream fi("x.txt");
 	fi<<start;
 	fi.close();
@@ -117,11 +117,11 @@ int main(){
 	int find=-1;
 	int dir=-1;
     
-	for(int j=1;j<=12;j++){
+	for(int j=1;j<=15;j++){
 	for(int i=((j-1)*4000);i<=(j*4000);i++){    
 	string s=to_string(i);
 	ifstream myfile ("dir"+to_string(j)+"/"+s+"_q.txt");
-	ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");     
+	ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");
 	if( (!myfile) || (!myfile2)) {continue;}
 	string line;
 	string t_path="";
@@ -141,6 +141,7 @@ int main(){
 	cout<<"dir="<<dir<<",i="<<i<<",d="<<d<<",mind="<<mind<<",find="<<find<<endl;
 	}
 	}
+
 	
 	string line;
 	string tmp="";
