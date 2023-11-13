@@ -81,18 +81,21 @@ int distance(string x,string y){
       }
     }
   }
-	
-ofstream fi("y.txt");
-fi<<y;
-fi.close();
-system("python3 mecab.py");
-int d2;
-FILE *file;
-file = fopen("score.txt", "r");
-fscanf(file, "%d", &d2);
-fclose(file);
     
-return LP[(int)x.size()][(int)y.size()]-(d2*100);
+  
+    ofstream fi("y.txt");
+	fi<<y;
+	fi.close();
+    
+    system("python3 mecab.py");
+    
+    int d2;
+	FILE *file;
+	file = fopen("score.txt", "r");
+	fscanf(file, "%d", &d2);
+	fclose(file);
+    
+  return LP[(int)x.size()][(int)y.size()]-(d2*100);
 
 }
 int main(){
@@ -107,40 +110,39 @@ int main(){
 	}
 	if(escape){break;}
 	}
-	
-	ofstream fi("x.txt");
+    
+    ofstream fi("x.txt");
 	fi<<start;
 	fi.close();
     
     
 	int mind=1000000;
 	int find=-1;
-	int dir=-1;
+    int dir=-1;
     
 	for(int j=1;j<=15;j++){
-	for(int i=((j-1)*4000);i<=(j*4000);i++){    
+    for(int i=((j-1)*4000);i<=(j*4000);i++){    
 	string s=to_string(i);
-	ifstream myfile ("dir"+to_string(j)+"/"+s+"_q.txt");
-	ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");
-	if( (!myfile) || (!myfile2)) {continue;}
+    ifstream myfile ("dir"+to_string(j)+"/"+s+"_q.txt");
+    ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");     
+    if( (!myfile) || (!myfile2)) {continue;}
 	string line;
 	string t_path="";
 	while(getline(myfile,line)){
 	t_path+=line;    
-	}
 	myfile.close();
+    }
 	while(1){
 	if((int)t_path.size()<CODE_LENGTH){t_path+="@";}
 	else{break;}
 	}
-	if((int)start.size()>CODE_LENGTH){start=start.substr(0,CODE_LENGTH);}
-	if((int)t_path.size()>CODE_LENGTH){t_path=t_path.substr(0,CODE_LENGTH);}    
+    if((int)start.size()>CODE_LENGTH){start=start.substr(0,CODE_LENGTH);}
+    if((int)t_path.size()>CODE_LENGTH){t_path=t_path.substr(0,CODE_LENGTH);}    
 	int d=distance(start,t_path);
-	if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
-	if(mind>d){mind=d;find=i;dir=j;}
-	cout<<"dir="<<dir<<",i="<<i<<",d="<<d<<",mind="<<mind<<",find="<<find<<endl;
-	}
-	}
+    if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
+	if(mind>d){mind=d;find=i;dir=j;cout<<"dir="<<dir<<",i="<<i<<",d="<<d<<",mind="<<mind<<",find="<<find<<endl;}
+	}   
+    }
 
 	
 	string line;
@@ -156,10 +158,10 @@ int main(){
 	myfile.close();
 	ans=t_path;
 	cout<<find<<"_a.txt"<<endl;
-	for(int i=0;i<(int)ans.size();i++){
+    for(int i=0;i<(int)ans.size();i++){
 	if(ans[i]=='@'){ans[i]='\n';}
 	}
-	cout<<ans<<endl;
+    cout<<ans<<endl;
     
 	return 0;
 }
