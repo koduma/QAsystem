@@ -60,6 +60,7 @@ for i in range(len(noun_count)):
             print(str(noun_count[i][0])+",score="+str(score+text.count(str(noun_count[i][0]))))
             #print(noun_count[i][1])
             score=score+text.count(str(noun_count[i][0]))
+            break
             
 f = open('score.txt', 'w')
 f.write(str(score))
