@@ -67,19 +67,17 @@ int LP[CODE_LENGTH+5][CODE_LENGTH+5];
 double sum=0;
 
 double hit_distance(string x,string y,int mode){
-
-    ofstream fi("y.txt");
+	
+	ofstream fi("y.txt");
 	fi<<y;
 	fi.close();
-
-    if(mode==1){
-    system("python3 mecab.py");//一般含まない
-    }
-    else if(mode==0){
-    system("python3 mecab2.py");//一般含む    
-    }
-
-    int d2=0;
+	if(mode==1){
+	system("python3 mecab.py");//一般含まない
+	}
+	else if(mode==0){
+	system("python3 mecab2.py");//一般含む
+	}
+	int d2=0;
     
 	FILE *file;
 	file = fopen("score.txt", "r");
@@ -91,26 +89,24 @@ double hit_distance(string x,string y,int mode){
 }
 
 double edit_distance(string x,string y){
-
-    int j,k;
-    
-    memset(LP,0,sizeof(LP));  
-    
-  for(j=1;j<=(int)x.size();j++) LP[j][0] = j;
-  for(k=1;k<=(int)y.size();k++) LP[0][k] = k;
-
-  for(j=1;j<=(int)x.size();j++) {
-    for(k=1;k<=(int)y.size();k++) {
-      int m = min(LP[j-1][k]+1, LP[j][k-1]+1);
-      if(x[j-1] == y[k-1]) {
+	
+	int j,k;
+	memset(LP,0,sizeof(LP));
+	for(j=1;j<=(int)x.size();j++) LP[j][0] = j;
+	for(k=1;k<=(int)y.size();k++) LP[0][k] = k;
+	
+	for(j=1;j<=(int)x.size();j++) {
+	for(k=1;k<=(int)y.size();k++) {
+	int m = min(LP[j-1][k]+1, LP[j][k-1]+1);
+	if(x[j-1] == y[k-1]) {
         m = min(m,LP[j-1][k-1]);
         LP[j][k] = m;
-      }else {
+	}else {
         m = min(m,LP[j-1][k-1]+1);
         LP[j][k] = m;
-      }
-    }
-  }
+	}
+	}
+	}
 
  
 
@@ -370,8 +366,7 @@ nod BEAM_SEARCH(nod n) {
 	dque.push_back(n);
 
 	nod bestAction=n;
-
-    double maxvalue=-1000000;
+	double maxvalue=-1000000;
 
 	//2手目以降をビームサーチで探索
 	for (int i = 0;i<TURN; i++) {
@@ -382,12 +377,12 @@ nod BEAM_SEARCH(nod n) {
 			(temp.v)[temp.cur]++;
 			if((temp.v)[temp.cur]>=5){continue;}
 			auto p = words.equal_range(temp.cur);
-            int m=0;
+			int m=0;
 			for (auto it = p.first; it != p.second; ++it) {
-            m++;
-            if(dp[to_string(temp.prev)+","+to_string(it->second)]==0){continue;}    
-            if(m>=100000){break;}
-            if((temp.v)[it->second]>=1){continue;}    
+			m++;
+			if(dp[to_string(temp.prev)+","+to_string(it->second)]==0){continue;}
+			if(m>=100000){break;}
+			if((temp.v)[it->second]>=1){continue;}    
 			nod cand = temp;
 			string s=unword[it->second];    
 			if(s==""||(it->second==0)){continue;}    
@@ -402,13 +397,13 @@ nod BEAM_SEARCH(nod n) {
 			string x=ans.substr(a,b);                
 			string y=unword[it->second];
 			double diff=edit_distance(x,y);
-            if(diff<=1){    
+			if(diff<=1){    
 			cand.ev+=(-diff)+hit_distance(x,y,1)*10000.0+(double)((i+1)*100000)+(double)(prob[it->second]/sum)+(double)dp[to_string(cand.prev)+","+to_string(it->second)];
-            //cout<<"prob="<<prob[it->second]<<",dp="<<dp[to_string(cand.prev)+","+to_string(it->second)]<<endl;    
-            cand.prev=it->second;
-            cand.history.push_back(it->second);    
+			//cout<<"prob="<<prob[it->second]<<",dp="<<dp[to_string(cand.prev)+","+to_string(it->second)]<<endl;    
+			cand.prev=it->second;
+			cand.history.push_back(it->second);    
 			vn.push_back(cand);
-            }    
+			}    
 			}
 		}
 		printf("depth=%d/%d\n",i+1,TURN);
@@ -426,11 +421,11 @@ nod BEAM_SEARCH(nod n) {
 			if(temp.ev>maxvalue){
 				maxvalue=temp.ev;
 				bestAction=temp;
-                cout<<temp.str<<endl;
-                for(int h=0;h<(int)temp.history.size();h++){
-                    cout<<temp.history[h]<<"->";
-                }
-                cout<<endl;
+				cout<<temp.str<<endl;
+				for(int h=0;h<(int)temp.history.size();h++){
+				cout<<temp.history[h]<<"->";
+				}
+				cout<<endl;
 			}
 			if (i < TURN) {
 				dque.push_back(temp);
@@ -498,10 +493,10 @@ nod BEAM_SEARCH2(nod n) {
 				maxvalue=temp.ev;
 				bestAction=temp;
 				cout<<temp.str<<endl;
-                for(int h=0;h<(int)temp.history.size();h++){
-                    cout<<temp.history[h]<<"->";
-                }
-                cout<<endl;
+    				for(int h=0;h<(int)temp.history.size();h++){
+                    		cout<<temp.history[h]<<"->";
+		      		}
+                		cout<<endl;
 				congrats=true;
 			}
 			if (i < TURN) {
@@ -517,8 +512,8 @@ nod BEAM_SEARCH2(nod n) {
 */
 
 int main(){
-
-    calc_words();
+	
+	calc_words();
     
 	string start;
 	
@@ -530,42 +525,41 @@ int main(){
 	}
 	if(escape){break;}
 	}
-    
-    ofstream fi("x.txt");
+	ofstream fi("x.txt");
 	fi<<start;
 	fi.close();
     
     
 	double mind=1000000;
 	int find=-1;
-    int dir=-1;
+	int dir=-1;
     
 	//for(int j=1;j<=15;j++){
-    //for(int i=((j-1)*4000);i<=(j*4000);i++){
-    for(int j=12;j<=12;j++){
+	//for(int i=((j-1)*4000);i<=(j*4000);i++){
+	for(int j=12;j<=12;j++){
         for(int i=44308;i<=44308;i++){
 	string s=to_string(i);
-    ifstream myfile ("dir"+to_string(j)+"/"+s+"_q.txt");
-    ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");     
-    if( (!myfile) || (!myfile2)) {continue;}
+	ifstream myfile ("dir"+to_string(j)+"/"+s+"_q.txt");
+	ifstream myfile2 ("dir"+to_string(j)+"/"+s+"_a.txt");
+	if( (!myfile) || (!myfile2)) {continue;}
 	string line;
 	string t_path="";
 	while(getline(myfile,line)){
 	t_path+=line;    
 	myfile.close();
-    }
+	}
 	while(1){
 	if((int)t_path.size()<CODE_LENGTH){t_path+="@";}
 	else{break;}
 	}
-    if((int)start.size()>CODE_LENGTH){start=start.substr(0,CODE_LENGTH);}
-    if((int)t_path.size()>CODE_LENGTH){t_path=t_path.substr(0,CODE_LENGTH);}    
+	if((int)start.size()>CODE_LENGTH){start=start.substr(0,CODE_LENGTH);}
+	if((int)t_path.size()>CODE_LENGTH){t_path=t_path.substr(0,CODE_LENGTH);}    
 	double d=edit_distance(start,t_path);
-    d-=100.0*hit_distance(start,t_path,0);        
-    if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
+	d-=100.0*hit_distance(start,t_path,0);        
+	if((int)t_path.size()>CODE_LENGTH){d=1000000;}    
 	if(mind>d){mind=d;find=i;dir=j;cout<<"dir="<<dir<<",i="<<i<<",d="<<d<<",mind="<<mind<<",find="<<find<<endl;}
-	}   
-    }
+	}
+	}
 
 	
 	string line;
@@ -581,28 +575,25 @@ int main(){
 	myfile.close();
 	ans=t_path;
 	cout<<find<<"_a.txt"<<endl;
-
-    ofstream fiv("z.txt");
+	
+	ofstream fiv("z.txt");
 	fiv<<tmp;
 	fiv.close();
-
-    system("python3 test3.py");
-
-    ifstream mi("w.txt");
-    while(getline(mi,line)){
-    tmp=line;
-    bool ok=false;    
-    auto p = words.equal_range(word[tmp]);
+	system("python3 test3.py");
+	
+	ifstream mi("w.txt");
+	while(getline(mi,line)){
+	tmp=line;
+	bool ok=false;
+	auto p = words.equal_range(word[tmp]);
 	for (auto it = p.first; it != p.second; ++it) {
         ok=true;
         break;
-    }
-    if(ok){break;}    
-    }
-
-    remove("w.txt");
-    
-    string rrr;
+	}
+	if(ok){break;}
+	}
+	remove("w.txt");
+	string rrr;
 	int cur;
 	cur=word[tmp];    
 	unordered_map<int, int>v2;
@@ -611,14 +602,13 @@ int main(){
 	n.v=v2;
 	n.str=unword[cur];
 	n.ev=0;
-    n.prev=cur;        
-    n.history.push_back(cur);
+	n.prev=cur;
+	n.history.push_back(cur);
 	n=BEAM_SEARCH(n);
 	for(int i=0;i<(int)n.str.size();i++){
 	if(n.str[i]=='@'){n.str[i]='\n';}
 	}
-    cout<<n.str<<endl;
-
+	cout<<n.str<<endl;
     
 	return 0;
 }
